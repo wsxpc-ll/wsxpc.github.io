@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多媒体播放器页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 40px;
+        }
+        .music-player {
+            margin-top: 40px;
+        }
+        audio {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>多媒体播放器页面</h1>
+
+    <!-- 视频播放器部分 -->
+    <video controls>
+        <source src="/video/王也.mp4" type="video/mp4">
+    </video>
+    <p>王也 - 出自一人之下动漫，喜欢的可以看一下</p>
+
+    <!-- 音乐播放器部分 -->
+    <div id="musicPlayer" class="music-player">
+        <audio id="audioPlayer" controls>
+            <source src="/music/music1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <button onclick="prevSong()">上一首</button>
+    <button onclick="nextSong()">下一首</button>
+
+    <script>
+        const songs = [
+            { src: "/music/music1.mp3", title: "歌曲1" },
+            { src: "/music/music2.mp3", title: "歌曲2" },
+            { src: "/music/music.mp3", title: "歌曲3" }
+        ];
+
+        let currentIndex = 0;
+
+        function loadSong(index) {
+            const audioPlayer = document.getElementById("audioPlayer");
+            audioPlayer.src = songs[index].src;
+            audioPlayer.play();
+        }
+
+        function prevSong() {
+            currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+            loadSong(currentIndex);
+        }
+
+        function nextSong() {
+            currentIndex = (currentIndex + 1) % songs.length;
+            loadSong(currentIndex);
+        }
+
+        // 初始化加载第一首歌
+        window.onload = () => {
+            loadSong(currentIndex);
+        };
+    </script>
+</body>
+</html>
